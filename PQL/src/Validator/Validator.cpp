@@ -195,32 +195,31 @@ bool Validator::checkRelationship(string relationship) {
 	return true;
 }
 
-bool Validator::checkAttribute(string attribute) {	//MUSI JESZCZE JAKOS SPRAWDZAC I POBIERAC TYP ATRYBUTU
-	int dots = 0;
-	for(char& c : attribute) {
-		if(c == '(')
-			dots++;
-	}
-	if(dots >1)
-		return false;
-	vector<string> v1;
-	split(attribute, '.', v1);
-	string entity = v1[0], type = v1[1];
-	bool validEntity = false, validType = false;
-	for(size_t i=0; i < attributeTab.size(); i++) {
-		if(entity == attributeTab[i][0]) {
-			validEntity = true;
-			break;
-		}
-	}
-	for(size_t i=0; i < attributeTab.size(); i++) {
-		if(type == attributeTab[i][1]) {
-			validType = true;
-			break;
-		}
-	}
-	if(!validEntity || !validType)
-			return false;
-	// TU DOPISAC SPRAWDZANIE CZY ENCJA SIE ZGADZA Z TYPEM
-	return true;
+bool Validator::checkAttribute(string attribute) {    //MUSI JESZCZE JAKOS SPRAWDZAC I POBIERAC TYP ATRYBUTU
+    int dots = 0;
+    for(char& c : attribute) {
+        if(c == '.')
+            dots++;
+    }
+    if(dots >1)
+        return false;
+    vector<string> v1;
+    split(attribute, '.', v1);
+    string entity = v1[0], type = v1[1];
+    bool validEntity = false, validType = false;
+    int entityIndex;
+    for(size_t i=0; i < attributeTab.size(); i++) {
+        if(entity == attributeTab[i][0]) {
+            validEntity = true;
+            entityIndex = i;
+            break;
+        }
+    }
+    if(!validEntity)
+        return false;
+    if(type == attributeTab[entityIndex][1])
+        validType = true;
+    if(!validType)
+            return false;
+    return true;
 }

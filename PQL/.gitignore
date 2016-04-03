@@ -1,1 +1,10 @@
+/Default/
+Debug/
 /bin
+*.o
+*.exe
+*.proj
+.cproject
+.project
+Release/
+.settings/ 
