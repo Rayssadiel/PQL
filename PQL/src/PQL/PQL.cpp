@@ -44,9 +44,10 @@ string PQL::getQuery()
 
 string PQL::processQuery(string query)
 {
-	string processedQuery = query;
-	trim(query);
-	processedQuery = query;
+	string processedQuery;
+	processedQuery = toLower(query);
+	trim(processedQuery);
+	cout<<"processQuery: "<<processedQuery<<endl;
 	return processedQuery;
 }
 
@@ -54,4 +55,5 @@ void PQL:: enterQuery()
 {
 	cout << "Enter Query: \n";
 	getline(cin,query);
+	query=processQuery(query);
 }

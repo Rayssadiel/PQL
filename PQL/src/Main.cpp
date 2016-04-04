@@ -12,7 +12,7 @@ int main(int argc, char** args) {
 	QueryPreProcessor* que = new QueryPreProcessor();
 	PQL *pql = new PQL();
 	pql->enterQuery();
-	pql->processQuery(pql->getQuery());
+	//pql->processQuery(pql->getQuery());
 	//string a = "assign a; select a such that follows(a,\"a\");";
 	cout << "**** ZAPYTANIE **************************************************" << endl;
 	cout << pql->getQuery()<< endl << endl;
