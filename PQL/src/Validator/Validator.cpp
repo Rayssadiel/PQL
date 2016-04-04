@@ -6,11 +6,10 @@
  */
 
 #include "Validator.h"
-#include "globalne.h"
 
 Validator::Validator() {
 	// TODO Auto-generated constructor stub
-
+	init();
 }
 
 Validator::~Validator() {
@@ -88,7 +87,7 @@ void Validator::showAttributes() {
 void Validator::addRelationship(string relationship, int argsAmount, string type1, string type2) {
 	vector<string> relationshipCellTab;
 	relationshipCellTab.push_back(relationship);
-	relationshipCellTab.push_back(std::to_string(argsAmount));
+	relationshipCellTab.push_back(to_string(argsAmount));
 	relationshipCellTab.push_back(type1);
 	relationshipCellTab.push_back(type2);
 	relationshipTab.push_back(relationshipCellTab);
@@ -177,21 +176,23 @@ bool Validator::checkRelationship(string relationship) {
 		attributesArray[i] = v1[i];
 		attrValidatorsArray[i] = false;
 	}
-	// DO POPRAWY. TRZEBA SPRAWDZAC CZY  JEST ODPOWIEDNIA KOMBINACJA ATRYBUTOW, JEDNA RELACJA MOZE MIEC ROZNE KOMBINACJE, NIE MOZE SIE PRZEPLATAC
 	for(size_t i=0; i < relIdxs.size(); i++) {
 		for(size_t j = 0; j < v1.size(); j++) {
-			cout<<relationshipTab[relIdxs[i]][j+2] << ' ';
 			if(attributesArray[j] == relationshipTab[relIdxs[i]][j+2])
 				attrValidatorsArray[j] = true;
 		}
-		cout<<endl;
-		for(size_t j = 0; j < v1.size(); j++)
-			if(!attrValidatorsArray[j])
-				return false;
+		bool wrongAttr = false;
+		for(size_t j = 0; j < v1.size(); j++) {
+			if(attrValidatorsArray[j] == false) {
+				wrongAttr = true;
+				break;
+			}
+		}
+		if(!wrongAttr)
+			break;
+		if(wrongAttr && i == relIdxs.size() - 1)
+			return false;
 	}
-	/*for(size_t i = 0; i < v1.size(); i++)
-		if(!attrValidatorsArray[i])
-			return false;*/
 	return true;
 }
 

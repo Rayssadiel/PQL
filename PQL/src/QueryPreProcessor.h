@@ -38,7 +38,7 @@ public:
 private:
 	void writeVector(vector<string> &tab) {
 		cout << "Kolejny wektor" << endl;
-		for (int i = 0; i < tab.size(); i++) {
+		for (size_t i = 0; i < tab.size(); i++) {
 			cout << "[" << i << "] " << tab[i] << endl;
 		}
 	}
@@ -68,7 +68,7 @@ private:
 			pos = s.find(token, pos + 3);
 		}
 
-		for (int i = 0; i < positions.size(); i++) {
+		for (size_t i = 0; i < positions.size(); i++) {
 			pos = positions[i];
 		}
 
@@ -89,15 +89,15 @@ private:
 		vector<string> tokens = {"assign","stmt","while","variable","constant","prog_line"};
 
 		//Matcher* matcher = new Matcher();
-		for (int i = 0; i < tmp.size(); i++) {
+		for (size_t i = 0; i < tmp.size(); i++) {
 			//cout << "Tmp" << i << ": " << tmp[i] << endl;
 			// Sprawdzenie czy deklaracja nie zawiera procName, varName, value albo stmt#
 			if (!matcher->checkAll(tmp[i])) {
-				for(int j = 0 ; j < tokens.size() ; j ++)
+				for(size_t j = 0 ; j < tokens.size() ; j ++)
 				{
 					if (tmp[i].find(tokens[j]) < tmp[i].length()) {
 						vector<Field> tmpFields = makeFieldType(tokens[j],tmp[i]);
-						for (int j = 0; j < tmpFields.size(); j++) {
+						for (size_t j = 0; j < tmpFields.size(); j++) {
 							//cout << tmpFields[j].getType() << " " << tmpFields[j].getValue() << endl;
 							fields.push_back(tmpFields[j]);
 						}
@@ -125,7 +125,7 @@ private:
 
 		vector<string> tmp = split(declaration, ',');
 		vector<Field> declarationFields;
-		for (int i = 0; i < tmp.size(); i++) {
+		for (size_t i = 0; i < tmp.size(); i++) {
 			declarationFields.push_back(Field(type, tmp[i]));
 		}
 
@@ -140,7 +140,7 @@ private:
 		//if(countSelect(elems[0]) > 1) throwException();
 
 		vector<string> queryMainTokens;
-		for(int i = 0 ; i < elems.size() ; i ++)
+		for(size_t i = 0 ; i < elems.size() ; i ++)
 		{
 			if(matcher->checkTokens(elems[i],"select")) {
 				//queryMainTokens.push_back("select");
@@ -160,7 +160,7 @@ private:
 
 		//writeVector(queryParts);
 
-		for(int i = 0 ; i < queryParts.size() ; i ++)
+		for(size_t i = 0 ; i < queryParts.size() ; i ++)
 		{
 			cout<< "Query part: " << queryParts[i] << endl;
 			switch(checkType(queryParts[i]))
@@ -197,7 +197,7 @@ private:
 			treeNode = new tree_node_<PQLNode>(*node);
 			iter = tree->appendChild(iter, *treeNode);
 
-			for(int i = 1 ; i < selectNodes.size() ; i ++)
+			for(size_t i = 1 ; i < selectNodes.size() ; i ++)
 			{
 				node = selectNodes[i];
 				treeNode = new tree_node_<PQLNode>(*node);
@@ -217,7 +217,7 @@ private:
 			treeNode = new tree_node_<PQLNode>(*node);
 			iter = tree->appendChild(iter, *treeNode);
 
-			for(int i = 1 ; i < suchNodes.size() ; i ++)
+			for(size_t i = 1 ; i < suchNodes.size() ; i ++)
 			{
 				node = suchNodes[i];
 				treeNode = new tree_node_<PQLNode>(*node);
@@ -247,7 +247,7 @@ private:
 
 		Field* aktField;
 		int dotPos;
-		for(int i = 0 ; i < selectParts.size() ; i ++)
+		for(size_t i = 0 ; i < selectParts.size() ; i ++)
 		{
 			if(matcher->checkAll(selectParts[i]))
 			{
@@ -300,7 +300,7 @@ private:
 		vector<Field> attr;
 		bool star;
 
-		for(int i = 0 ; i < suchParts.size() ; i ++)
+		for(size_t i = 0 ; i < suchParts.size() ; i ++)
 		{
 			suchParts[i].erase(remove_if(suchParts[i].begin(), suchParts[i].end(), ptr_fun<int, int>(isspace)), suchParts[i].end());
 
@@ -346,7 +346,7 @@ private:
 			attrParts = split(suchPart,',');
 			//writeVector(attrParts);
 
-			for(int i = 0; i < attrParts.size() ; i ++)
+			for(size_t i = 0; i < attrParts.size() ; i ++)
 			{
 				if(matcher->isString(attrParts[i]))
 				{
@@ -383,7 +383,7 @@ private:
 
 	Field* findField(string name)
 	{
-		for(int i = 0 ; i < fields.size() ; i ++)
+		for(size_t i = 0 ; i < fields.size() ; i ++)
 		{
 			if(fields[i].getValue() == name) return &fields[i];
 		}
@@ -427,7 +427,7 @@ private:
 	{
 		bool isnext = false;
 		int tmpPos;
-		for(int i = 0 ; i < tokens.size() ; i ++)
+		for(size_t i = 0 ; i < tokens.size() ; i ++)
 		{
 			tmpPos = query.find(tokens[i], aktPos);
 			//cout << i << " -> " << tokens[i] << " " << aktPos << " " << lastPos << " " << tmpPos << endl;
@@ -463,7 +463,7 @@ private:
 
 	bool getNextPosition(vector<string> tokens, string query)
 	{
-		for(int i = 0 ; i < tokens.size() ; i ++)
+		for(size_t i = 0 ; i < tokens.size() ; i ++)
 		{
 			if(query.find(tokens[i]) < query.length())
 				return true;

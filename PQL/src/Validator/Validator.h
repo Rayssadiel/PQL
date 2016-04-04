@@ -10,6 +10,7 @@
 #include <functional>
 #include "../PQL/Field.h"
 #include <algorithm>
+#include "globalne.h"
 
 using namespace std;
 
